@@ -3,10 +3,10 @@
 
     <template id="s_employee_card_options" inherit_id="website.snippet_options">
         <xpath expr="." position="inside">
-            <div data-js="s_employee_card" data-selector=".s_employee_card">
-                <we-many2many string="Department" data-name="..." data-model="hr.department" data-fakem2m="true" data-fields="[&quot;name&quot;]"
+            <div data-js="s_employee_card_options" data-selector=".s_employee_card">
+                <we-many2many string="Department" data-model="hr.department" data-fakem2m="true" data-fields="[&quot;name&quot;]"
                 data-attribute-name="tempName" data-m2o-field="id"
-                data-select-data-attribute="tempName"/>    
+                data-select-data-attribute="tempName"/>
             </div>
         </xpath>
     </template>

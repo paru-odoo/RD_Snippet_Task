@@ -9,31 +9,26 @@ const Dynamic = publicWidget.Widget.extend({
   init: function () {
     this._super.apply(this, arguments);
     this.employee = null;
-    this.rpc = this.bindService("rpc");
+    this.orm = this.bindService("orm");
   },
-
   start: async function () {
-
     try {
-        var data = [];
-        if (this.target.dataset.tempName && JSON.parse(this.target.dataset.tempName).length) {
-            var itemSelect = JSON.parse(this.target.dataset.tempName);
-            for (var iter = 0; iter < itemSelect.length; iter++) {
-                data.push(itemSelect[iter].id)
-            }
+        const res = (this.target.dataset.tempName && JSON.parse(this.target.dataset.tempName)) || [];
+        let data = res.map(item => item.id);
+        let domain = data
+        if(data.length){
+            domain = [["department_id" , "in", data]]
         }
-        this.employee = await this.rpc("/hr/employee", {
-            department: data,
-        });
-        const employeeDetailEl = renderToElement(
-            "employee_card_data_iterate_template",
-            {
-            employee: this.employee,
+        this.employee = await this.orm.searchRead(
+            "hr.employee",
+            domain,
+            ["id", "name", "department_id", "job_id"]
+        )
+        const employeeDetailEl = renderToElement("employee_card_data_iterate_template", {
+                employee: this.employee,
             }
         );
-        document
-            .querySelector("#table_snippet")
-            .replaceChildren(employeeDetailEl);
+        document.querySelector("#table_snippet").replaceChildren(employeeDetailEl);
     } catch (error) {
         console.log(error);
     }

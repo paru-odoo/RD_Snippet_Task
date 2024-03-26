@@ -14,6 +14,9 @@
             'website_snippet/static/src/js/s_employee_card/000.xml',
             'website_snippet/static/src/js/s_employee_card/000.js',
         ],
+        'website.assets_wysiwyg' :[
+            'website_snippet/static/src/js/s_employee_card/options.js',
+        ]
     },
     'author': "Odoo",
     'sequence':'1',
